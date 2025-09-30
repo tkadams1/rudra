@@ -7,8 +7,8 @@
   ...
 }:
 let
-  username = "vasu";
-  userDescription = "Vasu Jain";
+  username = "tocaro";
+  userDescription = "tocaro Jain";
   homeDirectory = "/home/${username}";
   hostName = "rudra";
   timeZone = "Asia/Kolkata";
@@ -17,8 +17,8 @@ in
   imports = [
     ./hardware-configuration.nix
     ./user.nix
-    ../../modules/nvidia-drivers.nix
-    ../../modules/nvidia-prime-drivers.nix
+    # ../../modules/nvidia-drivers.nix
+    # ../../modules/nvidia-prime-drivers.nix
     ../../modules/intel-drivers.nix
     inputs.home-manager.nixosModules.default
   ];
@@ -141,20 +141,20 @@ in
     };
   };
 
-  virtualisation = {
-    docker = {
-      enable = true;
-    };
-    libvirtd = {
-      enable = true;
-      qemu = {
-        swtpm.enable = true;
-        ovmf.enable = true;
-        runAsRoot = true;
-      };
-    };
-    spiceUSBRedirection.enable = true;
-  };
+  # virtualisation = {
+  #   docker = {
+  #     enable = true;
+  #   };
+  #   libvirtd = {
+  #     enable = true;
+  #     qemu = {
+  #       swtpm.enable = true;
+  #       ovmf.enable = true;
+  #       runAsRoot = true;
+  #     };
+  #   };
+  #   spiceUSBRedirection.enable = true;
+  # };
 
   programs = {
     nix-ld = {
@@ -200,19 +200,15 @@ in
     nano
     vscode
     zed-editor
-    jetbrains.idea-ultimate
+    #jetbrains.idea-ultimate
 
     # Zen Browser from custom input
     inputs.zen-browser.packages."${system}".default
 
     # Programming languages and tools
-    go
-    go-blueprint
-    go-migrate
-    sqlc
-    goose
-    air
-    lua
+    #goose
+    #air
+    #lua
     python3
     python3Packages.pip
     uv
@@ -222,9 +218,7 @@ in
     nodePackages_latest.pnpm
     nodePackages_latest.yarn
     fnm
-    bun
-    maven
-    mongodb-compass
+    #bun
     gcc
     openssl
     nodePackages_latest.live-server
@@ -284,14 +278,11 @@ in
     lm_sensors
     inxi
     # nvtopPackages.nvidia
-    anydesk
 
     # Network and internet tools
-    aria2
-    qbittorrent
-    cloudflare-warp
+    #cloudflare-warp
     tailscale
-    onedrive
+    #onedrive
 
     # Audio and video
     pulseaudio
@@ -311,21 +302,16 @@ in
 
     # Productivity and office
     obsidian
-    onlyoffice-bin
+    #onlyoffice-bin
     libreoffice-qt6-fresh
     spacedrive
     hugo
 
     # Communication and social
-    telegram-desktop
-    zoom-us
-    vesktop
-    element-desktop
 
     # Browsers
     firefox
     google-chrome
-    tor-browser
 
     # Gaming and entertainment
     stremio
@@ -468,7 +454,7 @@ in
         HandlePowerKey=suspend
       '';
     };
-    cloudflare-warp.enable = true;
+    #cloudflare-warp.enable = true;
     # supergfxd.enable = true;
     # asusd = {
     #   enable = true;
@@ -491,10 +477,6 @@ in
     gvfs.enable = true;
     openssh.enable = true;
     flatpak.enable = true;
-    printing = {
-      enable = true;
-      drivers = [ pkgs.hplipWithPlugin ];
-    };
     power-profiles-daemon.enable = false;
     thermald.enable = true;
     auto-cpufreq = {
@@ -517,12 +499,12 @@ in
       openFirewall = true;
     };
     ipp-usb.enable = true;
-    syncthing = {
-      enable = true;
-      user = username;
-      dataDir = homeDirectory;
-      configDir = "${homeDirectory}/.config/syncthing";
-    };
+    # syncthing = {
+    #   enable = true;
+    #   user = username;
+    #   dataDir = homeDirectory;
+    #   configDir = "${homeDirectory}/.config/syncthing";
+    # };
     pipewire = {
       enable = true;
       alsa = {
@@ -539,18 +521,18 @@ in
   # powerManagement.powertop.enable = true;
 
   systemd.services = {
-    onedrive = {
-      description = "Onedrive Sync Service";
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        Type = "simple";
-        User = username;
-        ExecStart = "${pkgs.onedrive}/bin/onedrive --monitor";
-        Restart = "always";
-        RestartSec = 10;
-      };
-    };
+    # onedrive = {
+    #   description = "Onedrive Sync Service";
+    #   after = [ "network-online.target" ];
+    #   wantedBy = [ "multi-user.target" ];
+    #   serviceConfig = {
+    #     Type = "simple";
+    #     User = username;
+    #     ExecStart = "${pkgs.onedrive}/bin/onedrive --monitor";
+    #     Restart = "always";
+    #     RestartSec = 10;
+    #   };
+    # };
     flatpak-repo = {
       path = [ pkgs.flatpak ];
       script = "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo";
@@ -665,15 +647,10 @@ in
     # PDF
     "application/pdf" = "zen.desktop";
 
-    # Torrents
-    "application/x-bittorrent" = "org.qbittorrent.qBittorrent.desktop";
-    "x-scheme-handler/magnet" = "org.qbittorrent.qBittorrent.desktop";
-
     # Other handlers
     "x-scheme-handler/about" = "zen.desktop";
     "x-scheme-handler/unknown" = "zen.desktop";
     "x-scheme-handler/postman" = "Postman.desktop";
-    "x-scheme-handler/tonsite" = "org.telegram.desktop.desktop";
   };
 
   home-manager = {

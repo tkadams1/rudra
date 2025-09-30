@@ -316,11 +316,11 @@
       "locked": {
         "lastModified": 1740469534,
         "narHash": "sha256-bp68J/WPfy0buBSdimXyHQcikYNaMHWraFQbTbwqOPA=",
-        "path": "/home/vasu/rudra/modules/nixCats",
+        "path": "/home/tocaro/rudra/modules/nixCats",
         "type": "path"
       },
       "original": {
-        "path": "/home/vasu/rudra/modules/nixCats",
+        "path": "/home/tocaro/rudra/modules/nixCats",
         "type": "path"
       }
     },
