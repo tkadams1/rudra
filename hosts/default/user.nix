@@ -4,8 +4,8 @@
   pkgs,
   ...
 }: let
-  userName = "tocaro";
-  userDescription = "tocaro Jain";
+  userName = "taylor";
+  userDescription = "taylor Jain";
 in {
   options = {
   };
@@ -14,7 +14,7 @@ in {
       isNormalUser = true;
       description = userDescription;
       shell = pkgs.zsh;
-      initialPassword = "tocaro";
+      initialPassword = "taylor";
       extraGroups = ["wheel" "docker" "wireshark" "libvirtd" "kvm"];
     };
     programs.zsh.enable = true;

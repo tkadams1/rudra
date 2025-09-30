@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixCats = {
-      url = "path:/home/tocaro/rudra/modules/nixCats";
+      url = "path:/home/taylor/rudra/modules/nixCats";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser.url = "github:0xc000022070/zen-browser-flake";

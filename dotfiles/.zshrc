@@ -133,7 +133,7 @@ eval "$(fnm env --use-on-cd)"
 # Export Paths
 
 # pnpm
-export PNPM_HOME="/home/tocaro/.local/share/pnpm"
+export PNPM_HOME="/home/taylor/.local/share/pnpm"
 case ":$PATH:" in
     *":$PNPM_HOME:"*) ;;
     *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -152,6 +152,6 @@ export PATH="$HOME/.local/bin:$PATH"
 # export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
 
 # Turso
-export PATH="$PATH:/home/tocaro/.turso"
+export PATH="$PATH:/home/taylor/.turso"
 
 source "$HOME/.sdkman/bin/sdkman-init.sh"

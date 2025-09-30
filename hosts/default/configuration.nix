@@ -7,8 +7,8 @@
   ...
 }:
 let
-  username = "tocaro";
-  userDescription = "tocaro Jain";
+  username = "taylor";
+  userDescription = "taylor Jain";
   homeDirectory = "/home/${username}";
   hostName = "rudra";
   timeZone = "Asia/Kolkata";
@@ -17,6 +17,7 @@ in
   imports = [
     ./hardware-configuration.nix
     ./user.nix
+    ./displaylink.nix
     # ../../modules/nvidia-drivers.nix
     # ../../modules/nvidia-prime-drivers.nix
     ../../modules/intel-drivers.nix
@@ -141,20 +142,20 @@ in
     };
   };
 
-  # virtualisation = {
-  #   docker = {
-  #     enable = true;
-  #   };
-  #   libvirtd = {
-  #     enable = true;
-  #     qemu = {
-  #       swtpm.enable = true;
-  #       ovmf.enable = true;
-  #       runAsRoot = true;
-  #     };
-  #   };
-  #   spiceUSBRedirection.enable = true;
-  # };
+  virtualisation = {
+    docker = {
+      enable = true;
+    };
+    libvirtd = {
+      enable = true;
+      qemu = {
+        swtpm.enable = true;
+        ovmf.enable = true;
+        runAsRoot = true;
+      };
+    };
+    spiceUSBRedirection.enable = true;
+  };
 
   programs = {
     nix-ld = {
@@ -339,6 +340,9 @@ in
     playerctl
     nh
     ansible
+
+    # Display manager
+    wdisplays
 
     # Wayland specific
     hyprshot

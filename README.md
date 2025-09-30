@@ -1,12 +1,12 @@
 <h1 align="center">:snowflake: रुद्र :snowflake:</h2>
 
 <p align="center">
-	<a href="https://github.com/tocarojain275/rudra/stargazers">
-		<img alt="Stargazers" src="https://img.shields.io/github/stars/tocarojain275/rudra?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41"></a>
+	<a href="https://github.com/taylorjain275/rudra/stargazers">
+		<img alt="Stargazers" src="https://img.shields.io/github/stars/taylorjain275/rudra?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41"></a>
     <a href="https://nixos.org/">
         <img src="https://img.shields.io/badge/NixOS-25.05-informational.svg?style=for-the-badge&logo=nixos&color=F2CDCD&logoColor=D9E0EE&labelColor=302D41"></a>
     <a href="https://github.com/ryan4yin/nixos-and-flakes-book">
-        <img src="https://img.shields.io/github/repo-size/tocarojain275/rudra?style=for-the-badge&logo=nixos&color=DDB6F2&logoColor=D9E0EE&labelColor=302D41"></a>
+        <img src="https://img.shields.io/github/repo-size/taylorjain275/rudra?style=for-the-badge&logo=nixos&color=DDB6F2&logoColor=D9E0EE&labelColor=302D41"></a>
   </a>
 </p>
 
@@ -40,7 +40,7 @@ nix-shell -p git vim
 Clone this repo & enter it:
 
 ```
-git clone https://github.com/tocarojain275/rudra
+git clone https://github.com/taylorjain275/rudra
 cd rudra
 ```
 
@@ -60,7 +60,7 @@ Generate your hardware.nix like so:
 nixos-generate-config --show-hardware-config > hosts/<your-desired-hostname>/hardware-configuration.nix
 ```
 
-- _Edit All the instances of my name "tocaro" and replace it with your name_
+- _Edit All the instances of my name "taylor" and replace it with your name_
 
 - _Change to amd/intel modules from nvidia one according to your gpu in configuration.nix_
 
@@ -74,3 +74,16 @@ sudo nixos-rebuild switch --flake .#hostname
 Now when you want to rebuild the configuration you can execute the last command, that will rebuild the flake!
 
 Hope you enjoy!
+
+# Remove all backup files
+rm -f ~/.gtkrc-2.0.backup
+rm -rf ~/.config/kitty.backup
+rm -rf ~/.config/hypr.backup
+rm -f ~/.config/kwalletrc.backup
+rm -f ~/.config/gtk-4.0/gtk.css.backup
+rm -f ~/.config/gtk-4.0/settings.ini.backup
+rm -f ~/.config/gtk-3.0/gtk.css.backup
+rm -f ~/.config/gtk-3.0/settings.ini.backup
+
+# Now rebuild
+sudo nixos-rebuild switch --flake .#default

@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  userName = "tocaro";
+  userName = "taylor";
   homeDirectory = "/home/${userName}";
   stateVersion = "24.05";
 in {
