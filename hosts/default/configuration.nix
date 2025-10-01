@@ -11,13 +11,14 @@ let
   userDescription = "taylor Jain";
   homeDirectory = "/home/${username}";
   hostName = "rudra";
-  timeZone = "Asia/Kolkata";
+  timeZone = "America/Chicago";
 in
 {
   imports = [
     ./hardware-configuration.nix
     ./user.nix
     ./displaylink.nix
+    ./plymouth_theme.nix
     # ../../modules/nvidia-drivers.nix
     # ../../modules/nvidia-prime-drivers.nix
     ../../modules/intel-drivers.nix
@@ -62,7 +63,12 @@ in
       mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
       magicOrExtension = ''\x7fELF....AI\x02'';
     };
-    plymouth.enable = true;
+    # plymouth = {
+    #   enable = true;
+    #   theme = lib.mkForce "spinner";  # Uses your UEFI logo
+    #   # or
+    #   # theme = "spinner";  # Simple spinner
+    # };
   };
 
   networking = {
@@ -200,6 +206,7 @@ in
     # Text editors and IDEs
     nano
     vscode
+    vscodium
     zed-editor
     #jetbrains.idea-ultimate
 
@@ -343,6 +350,9 @@ in
 
     # Display manager
     wdisplays
+    nwg-displays
+    wlr-randr
+    wlay
 
     # Wayland specific
     hyprshot

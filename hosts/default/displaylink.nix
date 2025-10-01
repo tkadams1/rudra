@@ -15,7 +15,13 @@
 
     environment.variables = {
         KWIN_DRM_PREFER_COLOR_DEPTH = "24";
+        WLR_DRM_NO_ATOMIC = "1";
+        WLR_DRM_NO_MODIFIERS = "1";
+        WLR_RENDERER_ALLOW_SOFTWARE = "1";
     };
+    
+    # Ensure proper display manager
+    services.xserver.displayManager.gdm.wayland = true;
 
     environment.systemPackages = with pkgs; [
         displaylink
