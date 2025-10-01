@@ -19,10 +19,10 @@ let
     else ../../config/assets/logo.png;
   
   # Create custom Plymouth theme with pulsing effect
-  customPlymouthTheme = pkgs.stdenv.mkDerivation {
+  customPlymouthTheme = pkgs.stdenv.mkDerivation rec {
     name = "plymouth-theme-pulse";
     
-    src = pkgs.writeTextDir "pulse.plymouth" ''
+    themeConfig = pkgs.writeText "pulse.plymouth" ''
       [Plymouth Theme]
       Name=Pulse
       Description=A theme with a pulsing logo
@@ -116,61 +116,60 @@ let
       Plymouth.SetMessageFunction(message_callback);
     '';
     
+    dontUnpack = true;
+    
+    buildInputs = [ pkgs.imagemagick ];
+    
     buildPhase = ''
       mkdir -p $out/share/plymouth/themes/pulse
       
       # Copy theme configuration
-      cp ${src}/pulse.plymouth $out/share/plymouth/themes/pulse/
+      cp ${themeConfig} $out/share/plymouth/themes/pulse/pulse.plymouth
       
       # Copy script
       cp ${script} $out/share/plymouth/themes/pulse/pulse.script
       
-      # Create a placeholder logo (you'll replace this)
-      ${pkgs.imagemagick}/bin/convert \
-        -size 200x200 \
-        -gravity center \
-        -background transparent \
-        -fill white \
-        -pointsize 72 \
-        label:"LOGO" \
-        $out/share/plymouth/themes/pulse/logo.png
+      # Copy the logo (converted from SVG if needed)
+      cp ${logoImage} $out/share/plymouth/themes/pulse/logo.png
       
-      # Create a simple progress bar
-      ${pkgs.imagemagick}/bin/convert \
+      # Create a simple progress bar (no text needed)
+      magick \
         -size 400x10 \
-        -background transparent \
-        -fill rgba(255,255,255,0.5) \
         xc:none \
-        -bordercolor white \
-        -border 1x1 \
+        -fill 'rgba(255,255,255,0.5)' \
+        -draw 'rectangle 0,0 400,10' \
+        -stroke white \
+        -strokewidth 1 \
+        -draw 'rectangle 0,0 400,10' \
         $out/share/plymouth/themes/pulse/progress_bar.png
     '';
     
     installPhase = ''
-      mkdir -p $out/share/plymouth/themes
-      cp -r $out/share/plymouth/themes/pulse $out/share/plymouth/themes/
+      # Files are already in the correct location from buildPhase
+      # No need to copy anything
     '';
   };
 in
 {
-  # Your existing imports and configuration...
   
   boot = {
-    # ... your existing boot configuration ...
+    consoleLogLevel = 0;
+    initrd.verbose = false;
+    kernelParams = [
+      # Silent boot params for Plymouth
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "loglevel=3"
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+    ];
     
     plymouth = {
       enable = true;
-      theme = "pulse";
+      theme = lib.mkForce "pulse";
       themePackages = [ customPlymouthTheme ];
     };
-  };
-  
-  # To use your custom image (SVG or PNG), place it at one of:
-  # For SVG: ../../config/assets/logo.svg (will be auto-converted to PNG)
-  # For PNG: ../../config/assets/logo.png
-  # The system will automatically detect and convert SVG files
-  environment.etc."plymouth/themes/pulse/logo.png" = {
-    source = logoImage;
-    mode = "0644";
   };
 }
